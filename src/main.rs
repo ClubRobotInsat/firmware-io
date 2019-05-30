@@ -7,6 +7,7 @@ use crate::hal::stm32 as f103;
 use cortex_m::Peripherals as CortexPeripherals;
 use cortex_m_rt::entry;
 use embedded_hal::digital::{InputPin, OutputPin, StatefulOutputPin, ToggleableOutputPin};
+use librobot::eth::get_main_computer_ip;
 #[allow(unused_imports)]
 use panic_semihosting;
 use stm32f1xx_hal as hal;
@@ -159,7 +160,7 @@ fn main() -> ! {
                 &mut spi,
                 &mut eth,
                 &buzzer_state,
-                &IpAddress::new(192, 168, 1, 254),
+                &get_main_computer_ip(),
             )
         } else if robot.tirette.is_high() && tirette_already_detected {
             tirette_already_detected = false;
@@ -168,7 +169,7 @@ fn main() -> ! {
                 &mut spi,
                 &mut eth,
                 &buzzer_state,
-                &IpAddress::new(192, 168, 1, 254),
+                &get_main_computer_ip(),
             )
         }
 
